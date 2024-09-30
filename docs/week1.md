@@ -32,5 +32,5 @@ After starting my internship, I realized that as a software developer, it is ess
 
 ## Next Week's Plan
 
-- Begin building the prototype for tablet and desktop views.
+- Improve the UI components and give a formal look to the prototype.
 - Continue reading and deepening my understanding of *Introduction to Algorithms*.
