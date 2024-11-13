@@ -9,6 +9,7 @@ Under the Director of Technology, I have been asked to assist my friend Yonten, 
 ## Highlights
 
 1. Added two new pages: **Contact Us** and **About Us**.
+
 2. Implemented scroll animation on the home page.
 3. Read *Introduction to Algorithms* by Thomas H. Cormen.
 4. Improved the Figma design and consulted with the Director three times.

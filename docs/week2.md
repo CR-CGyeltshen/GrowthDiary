@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Welcome to the second week of my internship with Chimi. This week was quite an unusual experience for me, as I had to adapt to a more formal industrial environment. It was both funny and enjoyable to play the role of an office-going professional. ![me_this_days](https://i.redd.it/iaoxv23z40za1.jpg){ align=right }
+Welcome to the second week of my internship with Chimi. This week was quite an unusual experience for me, as I had to adapt to a more formal industrial environment. It was both funny and enjoyable to play the role of an office-going professional. ![me_this_days](https://i.redd.it/iaoxv23z40za1.jpg)
 
 During the week, we added more animations and redesigned the services page to enhance user experience with a more intuitive design. We were also fortunate to have our Director spare some time to impart knowledge on UI design, Docker, hexadecimal values, and the text-based web browser, Lynx.
 
