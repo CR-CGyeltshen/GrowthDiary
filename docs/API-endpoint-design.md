@@ -1,5 +1,5 @@
 ---
-title: "API Endpoint Design for CocoCommercial"
+title: "API Endpoint Design"
 categories: [CAP, Work 1]
 tags: [CAP]
 ---
