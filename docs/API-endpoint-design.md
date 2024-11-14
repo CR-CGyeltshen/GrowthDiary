@@ -310,7 +310,7 @@ tags: [CAP]
 
 ---
 
-### Endpoint: `PATCH /orders/{order_id}`
+### Endpoint: `PATCH /orders/{order_id}` (work)
 - **Description**: Update order details when a user modifies their order information.
 - **Query Logic**: Updates order information based on changes provided for the specified `order_id`.
 - **Response**:
@@ -406,29 +406,6 @@ tags: [CAP]
 
 ---
 
-### Endpoint: `GET /customer/{customer_id}/cart`
-- **Description**: Retrieve items currently in the customer's cart.
-- **Query Logic**: Retrieves items in the cart for the specified `customer_id`.
-- **Response**:
-    - **200 OK**: Returns cart items:
-
-      ```json
-      {
-          "customer_id": "{customer_id}",
-          "cart_items": [
-              {
-                  "product_id": "product_id",
-                  "product_name": "Product Name",
-                  "quantity": "Quantity",
-                  "price_per_unit": "Price per unit"
-              }
-          ]
-      }
-      ```
-    - **404 Not Found**: Returns "Cart is empty" if no items are found.
-
----
-
 ### Endpoint: `PATCH /customer/{customer_id}`
 - **Description**: Edit profile information for a specific customer.
 - **Query Logic**: Updates fields (name, image, phone number, location) for the given `customer_id`.
@@ -482,28 +459,6 @@ tags: [CAP]
 
 ---
 
-### Endpoint: `POST /customer/{customer_id}/cart/items` (doubt)
-- **Description**: Add an item to the customer's cart.
-- **Query Logic**: Adds a product to the cart associated with the specified `customer_id`.
-- **Response**:
-    - **200 OK**: Successfully adds the item to the cart:
-
-      ```json
-      {
-          "customer_id": "{customer_id}",
-          "cart_item": {
-              "product_name": product_name,
-              "product_price": product_price,
-              "description": description,
-              "image_url": image_url,
-              "stock_quantity": stock_quantity,
-              "created_at": created_at
-          }
-      }
-      ```
-    - **404 Not Found**: Returns "Product not found."
-
----
 
 ### Endpoint: `PATCH /customer/{customer_id}/orders/{order_id}`
 - **Description**: Edit an existing order placed by a customer.
