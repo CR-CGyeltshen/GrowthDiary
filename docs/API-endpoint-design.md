@@ -44,6 +44,28 @@ tags: [CAP]
 
 ## API Endpoints
 
+### Endpoint: `Post /create/merchant`
+- **Description**: Add a new merchant to the Merchant table.
+- **Query Logic**: Create a new record to the new merchant table with a unique `merchnat_id`.
+- **Response**:
+    - **200 OK**: Returns a success Message with status code 200
+
+      ```json
+      {
+            "merchant_id": "{merchant_id}",
+            "data":
+                {
+                    "Name": name,
+                    "Email": email,
+                    "Password": password,
+                    "Dzongkhag": dzongkhag,
+                    "Gewog": gewog,
+                    "Village": village
+                }
+      }
+      ```
+    - **404 Not Found**: Returns person with the above email already exists.
+
 ### Endpoint: `GET /store/{store_id}/orders`
 - **Description**: Retrieve orders placed by customers at a specific store.
 - **Query Logic**: Query the database for orders associated with the specified `store_id`.
