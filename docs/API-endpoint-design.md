@@ -44,16 +44,16 @@ tags: [CAP]
 
 ## API Endpoints
 
-### Endpoint: `Post /create/merchant`
-- **Description**: Add a new merchant to the Merchant table.
-- **Query Logic**: Create a new record to the new merchant table with a unique `merchnat_id`.
+### Endpoint: `Post /create/merchant/stores`
+- **Description**: Create a new store as soon as a new merchnat is been registered.
+- **Query Logic**: Create a new record to the new merchant table with a unique `merchnat_id` and with same `merchnat_id`, create a new store to that respected merchant.
 - **Response**:
     - **200 OK**: Returns a success Message with status code 200
 
       ```json
       {
             "merchant_id": "{merchant_id}",
-            "data":
+            "reault":
                 {
                     "Name": name,
                     "Email": email,
@@ -61,6 +61,16 @@ tags: [CAP]
                     "Dzongkhag": dzongkhag,
                     "Gewog": gewog,
                     "Village": village
+                },
+            "store_id":"{store_id}",
+
+            "data":{
+                "storeName": storeName,
+                "storeDescription":storeDescription,
+                "storeDzongkhag":storeDzongkhag,
+                "storeGewog":storeGewog,
+                "storeVillage":storeVillage,
+                "merchantId":result.id
                 }
       }
       ```
