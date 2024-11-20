@@ -44,7 +44,7 @@ tags: [CAP]
 
 ## API Endpoints
 
-### Endpoint: `Post /create/merchant/stores`
+1. ### Endpoint: `Post /create/merchant/stores`
 - **Description**: Create a new store as soon as a new merchnat is been registered.
 - **Query Logic**: Create a new record to the new merchant table with a unique `merchnat_id` and with same `merchnat_id`, create a new store to that respected merchant.
 - **Response**:
@@ -76,80 +76,30 @@ tags: [CAP]
       ```
     - **404 Not Found**: Returns person with the above email already exists.
 
-### Endpoint: `GET /store/{store_id}/orders`
-- **Description**: Retrieve orders placed by customers at a specific store.
-- **Query Logic**: Query the database for orders associated with the specified `store_id`.
+2. ### Endpoint: `POST /store/{store_id}/products`
+- **Description**: Add a new product to the specified store.
+- **Query Logic**: Adds a new product to the `products` table associated with `store_id`.
 - **Response**:
-    - **200 OK**: Returns a list of orders with relevant details:
+    - **200 OK**: Successfully adds a new product with the provided details:
 
       ```json
       {
           "store_id": "{store_id}",
-          "orders": [
-              {
-                  "customer_name": true,
-                  "total_amount": true,
-                  "items": true,
-                  "order_date": true,
-                  "fulfillment_date": true,
-                  "status": true,
-                  "location": true,
-                  "location_description": true,
-                  "phone_number": true
-              }
-          ]
-      }
-      ```
-    - **404 Not Found**: Returns "Store not found" or "No orders found for store" if applicable.
-
----
-
-### Endpoint: `POST /store/{store_id}/orders`
-- **Description**: Add a new order manually by the store owner.
-- **Query Logic**: Inserts a new order record for the specified `store_id`.
-- **Response**:
-    - **200 OK**: Creates a new order with the following details:
-
-      ```json
-      {
-          "store_id": "{store_id}",
-          "order": {
-              "total_amount": total_amount,
-              "order_date": order_date,
-              "orderItems": orderItems,
-              "status": 0,
-              "dzongkhag": dzongkhag,
-              "gewog": gewog,
-              "village": village,
-              "address_description": address_description,
-              "phone_number": phone_number,
-              "latitude": latitude,
-              "longitude": longitude,
-              "note_from_orderer": note_from_orderer
+          "product": {
+              "product_name": product_name,
+              "product_price": product_price,
+              "description": description,
+              "image_url": image_url,
+              "stock_quantity": stock_quantity,
+              "created_at": created_at
           }
       }
       ```
-    - **400 Bad Request**: Returns "Incomplete order details, please provide complete information."
+    - **404 Not Found**: Returns "Store not found" or "Unable to add product" if applicable.
 
 ---
 
-### Endpoint: `PATCH /store/{store_id}/orders/{order_id}`
-- **Description**: Update the status of a specific order when delivery is completed.
-- **Query Logic**: Updates the order status for the specified `order_id` under `store_id`.
-- **Response**:
-    - **200 OK**: Successfully updates the order status to `Delivered` for `order_id`:
-
-      ```json
-      {
-          "order_id": "{order_id}",
-          "status": 1
-      }
-      ```
-    - **404 Not Found**: Returns "Order not found."
-
----
-
-### Endpoint: `GET /store/{store_id}/products`
+3. ### Endpoint: `GET /store/{store_id}/products`
 - **Description**: Retrieve a list of products for a specific store identified by `store_id`.
 - **Query Logic**: Queries the database for products associated with the specified `store_id`.
 - **Response**:
@@ -174,152 +124,7 @@ tags: [CAP]
 
 ---
 
-### Endpoint: `POST /store/{store_id}/products`
-- **Description**: Add a new product to the specified store.
-- **Query Logic**: Adds a new product to the `products` table associated with `store_id`.
-- **Response**:
-    - **200 OK**: Successfully adds a new product with the provided details:
-
-      ```json
-      {
-          "store_id": "{store_id}",
-          "product": {
-              "product_name": product_name,
-              "product_price": product_price,
-              "description": description,
-              "image_url": image_url,
-              "stock_quantity": stock_quantity,
-              "created_at": created_at
-          }
-      }
-      ```
-    - **404 Not Found**: Returns "Store not found" or "Unable to add product" if applicable.
-
----
-
-### Endpoint: `GET /store/{store_id}/orders`
-- **Description**: Retrieve orders placed by customers at a specific store.
-- **Query Logic**: Query the database for orders associated with the specified `store_id`.
-- **Response**:
-    - **200 OK**: Returns a list of orders with relevant details:
-
-      ```json
-      {
-          "store_id": "{store_id}",
-          "orders": [
-              {
-                  "customer_name": true,
-                  "total_amount": true,
-                  "items": true,
-                  "order_date": true,
-                  "fulfillment_date": true,
-                  "status": true,
-                  "location": true,
-                  "location_description": true,
-                  "phone_number": true
-              }
-          ]
-      }
-      ```
-    - **404 Not Found**: Returns "Store not found" or "No orders found for store" if applicable.
-
----
-
-### Endpoint: `POST /store/{store_id}/orders`
-- **Description**: Add a new order manually by the store owner.
-- **Query Logic**: Inserts a new order record for the specified `store_id`.
-- **Response**:
-    - **200 OK**: Creates a new order with the following details:
-
-      ```json
-      {
-          "store_id": "{store_id}",
-          "order": {
-              "total_amount": total_amount,
-              "order_date": order_date,
-              "orderItems": orderItems,
-              "status": 0,
-              "dzongkhag": dzongkhag,
-              "gewog": gewog,
-              "village": village,
-              "address_description": address_description,
-              "phone_number": phone_number,
-              "latitude": latitude,
-              "longitude": longitude,
-              "note_from_orderer": note_from_orderer
-          }
-      }
-      ```
-    - **400 Bad Request**: Returns "Incomplete order details, please provide complete information."
-
----
-
-### Endpoint: `PATCH /store/{store_id}/orders/{order_id}`
-- **Description**: Update the status of a specific order when delivery is completed.
-- **Query Logic**: Updates the order status for the specified `order_id` under `store_id`.
-- **Response**:
-    - **200 OK**: Successfully updates the order status to `Delivered` for `order_id`:
-
-      ```json
-      {
-          "order_id": "{order_id}",
-          "status": 1
-      }
-      ```
-    - **404 Not Found**: Returns "Order not found."
-
----
-
-### Endpoint: `GET /store/{store_id}/products`
-- **Description**: Retrieve a list of products for a specific store identified by `store_id`.
-- **Query Logic**: Queries the database for products associated with the specified `store_id`.
-- **Response**:
-    - **200 OK**: Returns a list of products with relevant details:
-
-      ```json
-      {
-          "store_id": "{store_id}",
-          "products": [
-              {
-                  "product_name": true,
-                  "product_price": true,
-                  "description": true,
-                  "image_url": true,
-                  "stock_quantity": true,
-                  "created_at": true
-              }
-          ]
-      }
-      ```
-    - **404 Not Found**: Returns "Products not found" or "No products found for the given store" if applicable.
-
----
-
-### Endpoint: `POST /store/{store_id}/products`
-- **Description**: Add a new product to the specified store.
-- **Query Logic**: Adds a new product to the `products` table associated with `store_id`.
-- **Response**:
-    - **200 OK**: Successfully adds a new product with the provided details:
-
-      ```json
-      {
-          "store_id": "{store_id}",
-          "product": {
-              "product_name": product_name,
-              "product_price": product_price,
-              "description": description,
-              "image_url": image_url,
-              "stock_quantity": stock_quantity,
-              "created_at": created_at
-          }
-      }
-      ```
-    - **404 Not Found**: Returns "Store not found" or "Unable to add product" if applicable.
-
----
-
-
-### Endpoint: `PATCH /store/{store_id}`
+4. ### Endpoint: `PATCH /store/{store_id}`
 - **Description**: Update store details for a specific store.
 - **Query Logic**: Updates the specified fields (name, description, image, dzongkhag, gewog, village) for the given `store_id`.
 - **Response**:
@@ -342,6 +147,202 @@ tags: [CAP]
 
 ---
 
+### Endpoint: `GET /store/{store_id}/orders`
+- **Description**: Retrieve orders placed by customers at a specific store.
+- **Query Logic**: Query the database for orders associated with the specified `store_id`.
+- **Response**:
+    - **200 OK**: Returns a list of orders with relevant details:
+
+      ```json
+      {
+          "store_id": "{store_id}",
+          "orders": [
+              {
+                  "customer_name": true,
+                  "total_amount": true,
+                  "items": true,
+                  "order_date": true,
+                  "fulfillment_date": true,
+                  "status": true,
+                  "location": true,
+                  "location_description": true,
+                  "phone_number": true
+              }
+          ]
+      }
+      ```
+    - **404 Not Found**: Returns "Store not found" or "No orders found for store" if applicable.
+
+---
+
+### Endpoint: `POST /store/{store_id}/orders`
+- **Description**: Add a new order manually by the store owner.
+- **Query Logic**: Inserts a new order record for the specified `store_id`.
+- **Response**:
+    - **200 OK**: Creates a new order with the following details:
+
+      ```json
+      {
+          "store_id": "{store_id}",
+          "order": {
+              "total_amount": total_amount,
+              "order_date": order_date,
+              "orderItems": orderItems,
+              "status": 0,
+              "dzongkhag": dzongkhag,
+              "gewog": gewog,
+              "village": village,
+              "address_description": address_description,
+              "phone_number": phone_number,
+              "latitude": latitude,
+              "longitude": longitude,
+              "note_from_orderer": note_from_orderer
+          }
+      }
+      ```
+    - **400 Bad Request**: Returns "Incomplete order details, please provide complete information."
+
+---
+
+### Endpoint: `PATCH /store/{store_id}/orders/{order_id}`
+- **Description**: Update the status of a specific order when delivery is completed.
+- **Query Logic**: Updates the order status for the specified `order_id` under `store_id`.
+- **Response**:
+    - **200 OK**: Successfully updates the order status to `Delivered` for `order_id`:
+
+      ```json
+      {
+          "order_id": "{order_id}",
+          "status": 1
+      }
+      ```
+    - **404 Not Found**: Returns "Order not found."
+
+---
+
+
+### Endpoint: `GET /store/{store_id}/orders`
+- **Description**: Retrieve orders placed by customers at a specific store.
+- **Query Logic**: Query the database for orders associated with the specified `store_id`.
+- **Response**:
+    - **200 OK**: Returns a list of orders with relevant details:
+
+      ```json
+      {
+          "store_id": "{store_id}",
+          "orders": [
+              {
+                  "customer_name": true,
+                  "total_amount": true,
+                  "items": true,
+                  "order_date": true,
+                  "fulfillment_date": true,
+                  "status": true,
+                  "location": true,
+                  "location_description": true,
+                  "phone_number": true
+              }
+          ]
+      }
+      ```
+    - **404 Not Found**: Returns "Store not found" or "No orders found for store" if applicable.
+
+---
+
+### Endpoint: `POST /store/{store_id}/orders`
+- **Description**: Add a new order manually by the store owner.
+- **Query Logic**: Inserts a new order record for the specified `store_id`.
+- **Response**:
+    - **200 OK**: Creates a new order with the following details:
+
+      ```json
+      {
+          "store_id": "{store_id}",
+          "order": {
+              "total_amount": total_amount,
+              "order_date": order_date,
+              "orderItems": orderItems,
+              "status": 0,
+              "dzongkhag": dzongkhag,
+              "gewog": gewog,
+              "village": village,
+              "address_description": address_description,
+              "phone_number": phone_number,
+              "latitude": latitude,
+              "longitude": longitude,
+              "note_from_orderer": note_from_orderer
+          }
+      }
+      ```
+    - **400 Bad Request**: Returns "Incomplete order details, please provide complete information."
+
+---
+
+### Endpoint: `PATCH /store/{store_id}/orders/{order_id}`
+- **Description**: Update the status of a specific order when delivery is completed.
+- **Query Logic**: Updates the order status for the specified `order_id` under `store_id`.
+- **Response**:
+    - **200 OK**: Successfully updates the order status to `Delivered` for `order_id`:
+
+      ```json
+      {
+          "order_id": "{order_id}",
+          "status": 1
+      }
+      ```
+    - **404 Not Found**: Returns "Order not found."
+
+---
+<!-- 
+### Endpoint: `GET /store/{store_id}/products`
+- **Description**: Retrieve a list of products for a specific store identified by `store_id`.
+- **Query Logic**: Queries the database for products associated with the specified `store_id`.
+- **Response**:
+    - **200 OK**: Returns a list of products with relevant details:
+
+      ```json
+      {
+          "store_id": "{store_id}",
+          "products": [
+              {
+                  "product_name": true,
+                  "product_price": true,
+                  "description": true,
+                  "image_url": true,
+                  "stock_quantity": true,
+                  "created_at": true
+              }
+          ]
+      }
+      ```
+    - **404 Not Found**: Returns "Products not found" or "No products found for the given store" if applicable.
+
+--- -->
+<!-- 
+### Endpoint: `POST /store/{store_id}/products`
+- **Description**: Add a new product to the specified store.
+- **Query Logic**: Adds a new product to the `products` table associated with `store_id`.
+- **Response**:
+    - **200 OK**: Successfully adds a new product with the provided details:
+
+      ```json
+      {
+          "store_id": "{store_id}",
+          "product": {
+              "product_name": product_name,
+              "product_price": product_price,
+              "description": description,
+              "image_url": image_url,
+              "stock_quantity": stock_quantity,
+              "created_at": created_at
+          }
+      }
+      ```
+    - **404 Not Found**: Returns "Store not found" or "Unable to add product" if applicable.
+
+--- -->
+
+<!-- 
 ### Endpoint: `PATCH /orders/{order_id}` (work)
 - **Description**: Update order details when a user modifies their order information.
 - **Query Logic**: Updates order information based on changes provided for the specified `order_id`.
@@ -361,7 +362,7 @@ tags: [CAP]
       ```
     - **404 Not Found**: Returns "Order not found."
 
----
+--- -->
 
 ### Customer-Specific Endpoints
 
