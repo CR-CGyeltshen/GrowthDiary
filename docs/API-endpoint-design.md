@@ -45,10 +45,10 @@ tags: [CAP]
 ## API Endpoints
 
 1. ### Endpoint: `Post /create/merchant/stores`
-- **Description**: Create a new store as soon as a new merchnat is been registered.
-- **Query Logic**: Create a new record to the new merchant table with a unique `merchnat_id` and with same `merchnat_id`, create a new store to that respected merchant.
-- **Response**:
-    - **200 OK**: Returns a success Message with status code 200
+* **Description**: Create a new store as soon as a new merchnat is been registered.
+* **Query Logic**: Create a new record to the new merchant table with a unique `merchnat_id` and with same `merchnat_id`, create a new store to that respected merchant.
+* **Response**:
+    * **200 OK**: Returns a success Message with status code 200
 
       ```json
       {
@@ -74,13 +74,13 @@ tags: [CAP]
                 }
       }
       ```
-    - **404 Not Found**: Returns person with the above email already exists.
+    * **404 Not Found**: Returns person with the above email already exists.
 
 2. ### Endpoint: `POST /store/{store_id}/products`
-- **Description**: Add a new product to the specified store.
-- **Query Logic**: Adds a new product to the `products` table associated with `store_id`.
-- **Response**:
-    - **200 OK**: Successfully adds a new product with the provided details:
+* **Description**: Add a new product to the specified store.
+* **Query Logic**: Adds a new product to the `products` table associated with `store_id`.
+* **Response**:
+    * **200 OK**: Successfully adds a new product with the provided details:
 
       ```json
       {
@@ -95,15 +95,15 @@ tags: [CAP]
           }
       }
       ```
-    - **404 Not Found**: Returns "Store not found" or "Unable to add product" if applicable.
+    * **404 Not Found**: Returns "Store not found" or "Unable to add product" if applicable.
 
 ---
 
 3. ### Endpoint: `GET /store/{store_id}/products`
-- **Description**: Retrieve a list of products for a specific store identified by `store_id`.
-- **Query Logic**: Queries the database for products associated with the specified `store_id`.
-- **Response**:
-    - **200 OK**: Returns a list of products with relevant details:
+* **Description**: Retrieve a list of products for a specific store identified by `store_id`.
+* **Query Logic**: Queries the database for products associated with the specified `store_id`.
+* **Response**:
+    * **200 OK**: Returns a list of products with relevant details:
 
       ```json
       {
@@ -120,15 +120,15 @@ tags: [CAP]
           ]
       }
       ```
-    - **404 Not Found**: Returns "Products not found" or "No products found for the given store" if applicable.
+    * **404 Not Found**: Returns "Products not found" or "No products found for the given store" if applicable.
 
 ---
 
 4. ### Endpoint: `PATCH /store/{store_id}`
-- **Description**: Update store details for a specific store.
-- **Query Logic**: Updates the specified fields (name, description, image, dzongkhag, gewog, village) for the given `store_id`.
-- **Response**:
-    - **200 OK**: Successfully updates the store details:
+* **Description**: Update store details for a specific store.
+* **Query Logic**: Updates the specified fields (name, description, image, dzongkhag, gewog, village) for the given `store_id`.
+* **Response**:
+    * **200 OK**: Successfully updates the store details:
 
       ```json
       {
@@ -143,15 +143,39 @@ tags: [CAP]
           }
       }
       ```
-    - **404 Not Found**: Returns "Store not found."
+    * **404 Not Found**: Returns "Store not found."
 
 ---
 
+5. ### Endpoint: `POST  /create/customer`
+* **Description**: Create a new custmer.
+* **Query Logic**: Query the database to check whether the provide email exist or not. If not, create a new customer.
+* **Response**:
+    * **200 OK**: Customer created succesfully created.
+
+      ```json
+        {
+          "data": 
+              {
+                "name":name,
+                "email":email,
+                "phoneNumber":phoneNumber,
+                "dzongkhag":dzongkhag,
+                "gewog":gewog,
+                "village":village
+              }
+        }
+      ```
+    * **404 Not Found**: Returns a message `Customer with the email already exist`
+
+---
+
+
 ### Endpoint: `GET /store/{store_id}/orders`
-- **Description**: Retrieve orders placed by customers at a specific store.
-- **Query Logic**: Query the database for orders associated with the specified `store_id`.
-- **Response**:
-    - **200 OK**: Returns a list of orders with relevant details:
+* **Description**: Retrieve orders placed by customers at a specific store.
+* **Query Logic**: Query the database for orders associated with the specified `store_id`.
+* **Response**:
+    * **200 OK**: Returns a list of orders with relevant details:
 
       ```json
       {
@@ -171,15 +195,15 @@ tags: [CAP]
           ]
       }
       ```
-    - **404 Not Found**: Returns "Store not found" or "No orders found for store" if applicable.
+    * **404 Not Found**: Returns "Store not found" or "No orders found for store" if applicable.
 
 ---
 
 ### Endpoint: `POST /store/{store_id}/orders`
-- **Description**: Add a new order manually by the store owner.
-- **Query Logic**: Inserts a new order record for the specified `store_id`.
-- **Response**:
-    - **200 OK**: Creates a new order with the following details:
+* **Description**: Add a new order manually by the store owner.
+* **Query Logic**: Inserts a new order record for the specified `store_id`.
+* **Response**:
+    * **200 OK**: Creates a new order with the following details:
 
       ```json
       {
@@ -200,7 +224,7 @@ tags: [CAP]
           }
       }
       ```
-    - **400 Bad Request**: Returns "Incomplete order details, please provide complete information."
+    * **400 Bad Request**: Returns "Incomplete order details, please provide complete information."
 
 ---
 
@@ -368,7 +392,7 @@ tags: [CAP]
 
 ---
 
-### Endpoint: `GET /customer/{customer_id}`
+5. ### Endpoint: `GET /customer/{customer_id}`
 - **Description**: Retrieve profile information for a specific customer.
 - **Query Logic**: Retrieves customer details for the given `customer_id`.
 - **Response**:
@@ -391,7 +415,7 @@ tags: [CAP]
 
 ---
 
-### Endpoint: `GET /stores`
+7. ### Endpoint: `GET /stores`
 - **Description**: Retrieve a list of all available stores.
 - **Query Logic**: Retrieves all stores with basic details.
 - **Response**:
