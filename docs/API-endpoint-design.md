@@ -86,7 +86,7 @@ tags: [CAP]
 * **Query Logic**: Adds a new product to the `products` table associated with `store_id`.
 * **Response**:
     * **200 OK**: Successfully adds a new product with the provided details:
-      ```json
+      ```ts title="index.ts"
       {
           "store_id": "{store_id}",
           "product": {
@@ -119,7 +119,7 @@ tags: [CAP]
 
 * **Response**:
     * **200 OK**: Returns a list of products with relevant details:
-      ```json
+      ```ts title="index.ts"
       {
           "store_id": "{store_id}",
           "page": "{page_number}",
@@ -149,7 +149,7 @@ tags: [CAP]
 * **Query Logic**: Updates the specified fields (name, description, image, dzongkhag, gewog, village) for the given `store_id`.
 * **Response**:
     * **200 OK**: Successfully updates the store details:
-      ```json title="index.ts"
+      ```ts title="index.ts"
       {
           "store_id": "{store_id}",
           "updated_fields": {
@@ -174,7 +174,7 @@ tags: [CAP]
 - **Query Logic**: Retrieves customer details for the given `customer_id`.
 - **Response**:
     - **200 OK**: Returns customer profile details:
-      ```json
+      ```ts title="index.ts"
       {
           "customer_id": "{customer_id}",
           "profile": {
@@ -205,7 +205,7 @@ tags: [CAP]
 - **Query Logic**: Retrieves all stores with basic details.
 - **Response**:
     - **200 OK**: Returns a list of stores:
-      ```json
+      ```ts title="index.ts"
       {
           "stores": [
               {
@@ -232,7 +232,7 @@ tags: [CAP]
 * **Query Logic**: Query the database to check whether the provide email exist or not. If not, create a new customer.
 * **Response**:
     * **200 OK**: Customer created succesfully created.
-      ```json title=index.ts
+      ```ts title="index.ts"
         {
           "data": 
               {
@@ -257,7 +257,7 @@ tags: [CAP]
 - **Query Logic**: Updates fields (name, image, phone number, location) for the given `customer_id`.
 - **Response**:
     - **200 OK**: Successfully updates profile details:
-      ```json
+      ```ts title="index.ts"
       {
           "customer_id": "{customer_id}",
           "updated_profile": {
@@ -281,7 +281,7 @@ tags: [CAP]
 - **Query Logic**: Adds a new order for the specified `customer_id` with order details.
 - **Response**:
     - **200 OK**: Successfully places a new order:
-      ```json
+      ```ts title="index.ts"
       {
           "store_id": "{store_id}",
           "customer_id":{customer_id},
@@ -319,7 +319,7 @@ tags: [CAP]
 * **Query Logic**: Query the database for orders associated with the specified `store_id`.
 * **Response**:
     * **200 OK**: Returns a list of orders with relevant details:
-      ```json
+      ```ts title="index.ts"
       {
           "store_id": "{store_id}",
           "page": "{page_number}",
@@ -352,7 +352,7 @@ tags: [CAP]
 * **Query Logic**: Inserts a new order record for the specified `store_id`.
 * **Response**:
     * **200 OK**: Creates a new order with the following details:
-      ```json
+      ```ts title="index.ts"
       {
           "store_id": "{store_id}",
           "order": {
@@ -383,7 +383,7 @@ tags: [CAP]
 - **Query Logic**: Updates the order status for the specified `order_id` under `store_id`.
 - **Response**:
     - **200 OK**: Successfully updates the order status to `Delivered` for `order_id`:
-      ```json
+      ```ts title="index.ts"
       {
           "order_id": "{order_id}",
           "status": 1
@@ -401,7 +401,7 @@ tags: [CAP]
 - **Query Logic**: Query the database to get the order list of a specific customer with `customer_id`.
 - **Response**:
     - **200 OK**: Returns a list of orders placed by a specific customer
-      ```json
+      ```ts title="index.ts"
       {
           "customer_id": "{customer_id}",
           "orders": [
@@ -430,7 +430,7 @@ tags: [CAP]
 - **Query Logic**: Updates specific order details for the specified `order_id` under `customer_id`.
 - **Response**:
     - **200 OK**: Successfully updates the order:
-      ```json
+      ```ts title="index.ts"
       {
           "order_id": "{order_id}",
           "updated_order": {
