@@ -50,7 +50,7 @@ tags: [CAP]
 * **Query Logic**: Create a new record to the new merchant table with a unique `merchnat_id` and with same `merchnat_id`, create a new store to that respected merchant.
 * **Response**:
     * **200 OK**: Returns a success Message with status code 200
-      ```ts title=index.ts
+      ```ts title="index.ts"
       {
             "merchant_id": "{merchant_id}",
             "reault":
