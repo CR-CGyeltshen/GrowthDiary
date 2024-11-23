@@ -6,7 +6,7 @@ tags: [CAP]
 
 ## Entity Relationships
 
-### [Database Schema](https://lucid.app/lucidchart/ab48d5c6-8d3b-4d96-974c-b9e08c1514fa/edit?invitationId=inv_51cb4802-82c6-40a9-8815-9fa714dcf867&page=0_0#)
+### [Database Schema Link](https://lucid.app/lucidchart/ab48d5c6-8d3b-4d96-974c-b9e08c1514fa/edit?invitationId=inv_51cb4802-82c6-40a9-8815-9fa714dcf867&page=0_0#)
 
 - **Merchant and Store**: One-to-One (Each merchant can create only one store using a single email).
 - **Customer and Order**: One-to-Many (A customer can make multiple orders, but each order is associated with only one customer).
