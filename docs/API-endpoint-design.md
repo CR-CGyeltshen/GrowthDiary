@@ -45,7 +45,8 @@ tags: [CAP]
 ## API Endpoints
 
 1. ### Endpoint: `Post /create/merchant/stores`
-* **Description**: Create a new store as soon as a new merchnat is been registered.
+* **User**: Merchant
+* **Description**: Create a new store with a unique identitiy `Store_id` as soon as a new merchnat with a unique identifier `merchnat_id` is been registered.
 * **Query Logic**: Create a new record to the new merchant table with a unique `merchnat_id` and with same `merchnat_id`, create a new store to that respected merchant.
 * **Response**:
     * **200 OK**: Returns a success Message with status code 200
@@ -77,6 +78,7 @@ tags: [CAP]
     * **404 Not Found**: Returns person with the above email already exists.
 
 2. ### Endpoint: `POST /store/{store_id}/products`
+* **User**: Merchant
 * **Description**: Add a new product to the specified store.
 * **Query Logic**: Adds a new product to the `products` table associated with `store_id`.
 * **Response**:
@@ -99,15 +101,27 @@ tags: [CAP]
 
 ---
 
-3. ### Endpoint: `GET /store/{store_id}/products`
-* **Description**: Retrieve a list of products for a specific store identified by `store_id`.
-* **Query Logic**: Queries the database for products associated with the specified `store_id`.
+3. ### Endpoint: `GET /store/{store_id}/products?page={page_number}&limit={limit}`
+* **User**: Merchant
+* **Description**: Retrieve a list of products equal to `limit` for the specific page of given `store_id`.
+
+#### Parameters
+- **Path Parameter**:
+    - `store_id`: Unique identifier for the store.
+- **Query Parameters**:
+    - `page`: Page number for pagination.
+    - `limit`: Number of products to display per page.
+* **Query Logic**: Queries the database for products associated with the specified `store_id`, applying pagination based on `page` and `limit`.  
+
 * **Response**:
     * **200 OK**: Returns a list of products with relevant details:
 
       ```json
       {
           "store_id": "{store_id}",
+          "page": "{page_number}",
+          "limit": "{limit}",
+          "total_products": 35,
           "products": [
               {
                   "product_name": true,
@@ -125,12 +139,12 @@ tags: [CAP]
 ---
 
 4. ### Endpoint: `PATCH /store/{store_id}`
-* **Description**: Update store details for a specific store.
+* **User**: Merchant
+* **Description**: Update store details for a specific store with the given `store_id`.
 * **Query Logic**: Updates the specified fields (name, description, image, dzongkhag, gewog, village) for the given `store_id`.
 * **Response**:
     * **200 OK**: Successfully updates the store details:
-
-      ```json
+      ```json title="index.ts"
       {
           "store_id": "{store_id}",
           "updated_fields": {
@@ -148,12 +162,13 @@ tags: [CAP]
 ---
 
 5. ### Endpoint: `POST  /create/customer`
-* **Description**: Create a new custmer.
+* **User**: Customer
+* **Description**: Create a new custmer with a unique identifier `customer_id`.
 * **Query Logic**: Query the database to check whether the provide email exist or not. If not, create a new customer.
 * **Response**:
     * **200 OK**: Customer created succesfully created.
 
-      ```json
+      ```json title=index.ts
         {
           "data": 
               {
