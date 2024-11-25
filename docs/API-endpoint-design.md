@@ -248,7 +248,7 @@ tags: [CAP]
     * **404 Not Found**: Returns a message `Customer with the email already exist`
 
 ---
-***************
+
 
 
 ### Endpoint: `PATCH /customer/{customer_id}`
@@ -285,20 +285,26 @@ tags: [CAP]
       ```ts title="index.ts"
       {
           "store_id": "{store_id}",
-          "customer_id":{customer_id},
           "order": {
-              "order_id": "order_id",
-              "total_amount": "total",
-              "order_date":"order_date",
-              "fullfillment_date":"fullfillment_date",
-              "dzongkhag": "dzongkhag",
-              "gewog": "gewog",
-              "village": "village",
-              "address_description":"address_description",
-              "phone_number":"phone_number",
-              "NOTE_from_orderer":"NOTE_from_orderer",
-              "items": [ /* ordered items */ ],
-              "status": "Pending"
+            "fulfillmentDate": "body.fulfillmentDate",
+            "totalAmount": body.totalAmount,
+            "addressDescription": body.addressDescription,
+            "dzongkhag": body.dzongkhag,
+            "gewog": body.gewog,
+            "village": body.village,
+            "latitude": 27.12345,
+            "longitude": 89.12345,
+            "phoneNumber": "1234567890",
+            "orderItems":[
+                {
+                    "quantity": 2,
+                    "productId": 101
+                },
+                {
+                    "quantity": 1,
+                    "productId": 102
+                }
+            ]
           }
       }
       ```
@@ -357,24 +363,32 @@ tags: [CAP]
       {
           "store_id": "{store_id}",
           "order": {
-              "total_amount": total_amount,
-              "order_date": order_date,
-              "orderItems": orderItems,
-              "status": 0,
-              "dzongkhag": dzongkhag,
-              "gewog": gewog,
-              "village": village,
-              "address_description": address_description,
-              "phone_number": phone_number,
-              "latitude": latitude,
-              "longitude": longitude,
-              "note_from_orderer": note_from_orderer
+            "fulfillmentDate": "body.fulfillmentDate",
+            "totalAmount": body.totalAmount,
+            "addressDescription": body.addressDescription,
+            "dzongkhag": body.dzongkhag,
+            "gewog": body.gewog,
+            "village": body.village,
+            "latitude": 27.12345,
+            "longitude": 89.12345,
+            "phoneNumber": "1234567890",
+            "orderItems":[
+                {
+                    "quantity": 2,
+                    "productId": 101
+                },
+                {
+                    "quantity": 1,
+                    "productId": 102
+                }
+            ]
           }
       }
       ```
     * **400 Bad Request**: Returns "Incomplete order details, please provide complete information."
 
----
+--- 
+********************************************************************************************************************
 
 
 
