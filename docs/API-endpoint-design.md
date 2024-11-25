@@ -277,8 +277,9 @@ tags: [CAP]
 
 
 ### Endpoint: `POST /stores/{store_id}/customer/{customer_id}/orders`
-- **Description**: Place a new order for the specified customer to a specific store.
-- **Query Logic**: Adds a new order for the specified `customer_id` with order details.
+- **User**: Customers
+- **Description**: Place order to a specific store and add all the `order_item` to the **order_item table.**
+- **Query Logic**: Adds a new order for the specified `customer_id` with order details and add all the order_items to the ***order_items table***
 - **Response**:
     - **200 OK**: Successfully places a new order:
       ```ts title="index.ts"
@@ -423,22 +424,3 @@ tags: [CAP]
 
 ---
 
-
-
-### Endpoint: `PATCH /customer/{customer_id}/orders/{order_id}`
-- **Description**: Edit an existing order placed by a customer.
-- **Query Logic**: Updates specific order details for the specified `order_id` under `customer_id`.
-- **Response**:
-    - **200 OK**: Successfully updates the order:
-      ```ts title="index.ts"
-      {
-          "order_id": "{order_id}",
-          "updated_order": {
-              "items": [ /* updated items */ ],
-              "total_amount": "updated_total",
-              "delivery_address": "updated_address",
-              "note": "updated_note"
-          }
-      }
-      ```
-    - **404 Not Found**: Returns "Order not found."
