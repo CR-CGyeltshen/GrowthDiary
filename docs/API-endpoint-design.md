@@ -387,8 +387,7 @@ tags: [CAP]
       ```
     * **400 Bad Request**: Returns "Incomplete order details, please provide complete information."
 
---- 
-********************************************************************************************************************
+---
 
 
 
