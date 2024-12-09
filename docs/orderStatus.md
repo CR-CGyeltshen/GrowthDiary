@@ -24,9 +24,9 @@ It indicates where the order is in the dilivery process, whether it is still bei
     3. Delivery address
     4. Payment details
     5. Customer information(name) 
-2. **Order Processing**: The order is being processed by the merchant.(Do we really need this status) 
+2. **Order Processing**: The order is being processed by the merchant. 
     - The merchant will **pick the items** from the warehouse and **pack** them for shipping.
-3. **Shipped/Dispatched**: The delivery service now has the order.(do we need this)
+3. **Shipped/Dispatched**: The delivery service now has the order.(Removed)
 
 4. **In transit**: The order is on its way to the customer.
 
