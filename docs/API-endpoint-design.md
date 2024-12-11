@@ -127,12 +127,11 @@ tags: [CAP]
           "total_products": products.length,
           "products": [
               {
-                  "product_name": true,
-                  "product_price": true,
+                  "productName": true,
+                  "productPrice": true,
+                  "stock_quantity": true,
                   "description": true,
                   "image_url": true,
-                  "stock_quantity": true,
-                  "created_at": true
               }
           ]
       }
@@ -153,12 +152,13 @@ tags: [CAP]
       {
           "store_id": "{store_id}",
           "updated_fields": {
-                "name": "Updated Store Name",
-                "description": "Updated Description",
+                "stoteName": "Updated Store Name",
+                "storeDescription": "Updated Description",
                 "image": "image_url",
-                "dzongkhag": "updated_dzongkhag",
-                "gewog": "updated_gewog",
-                "village": "updated_village"
+                "storeDzongkhag": "updated_dzongkhag",
+                "storeGewog": "updated_gewog",
+                "storeVillage": "updated_village"
+                "updated_at": new Date()
           }
       }
       ```
@@ -251,6 +251,31 @@ tags: [CAP]
 
 
 
+### Endpoint: `GET  get/customer/{customer_id}`
+* **User**: Customer
+* **Description**: Retrieve customer profile data.
+* **Query Logic**: Query the database to retrive the profile data of a particular customer with `customer_id`.
+* **Response**:
+    * **200 OK**: Returns customer profile data
+      ```ts title="index.ts"
+        {
+          "data": 
+              {
+                "name":true,
+                "email":true,
+                "phoneNumber":true,
+                "dzongkhag":true,
+                "gewog":true,
+                "village":true
+              }
+        }
+      ```
+    * **404 Not Found**: Returns a message `Invalid customer_id`
+
+---
+
+
+
 ### Endpoint: `PATCH /customer/{customer_id}`
 - **User**: Customer
 - **Description**: Edit profile information for a specific customer.
@@ -267,6 +292,7 @@ tags: [CAP]
               "dzongkhag": "dzongkhag",
               "gewog": "gewog",
               "village": "village"
+              "updated_at": new Date()
           }
       }
       ```
@@ -298,17 +324,19 @@ tags: [CAP]
             "orderItems":[
                 {
                     "quantity": 2,
-                    "productId": 101
+                    "productId": 101,
+                    "unitPrice": 100
                 },
                 {
                     "quantity": 1,
-                    "productId": 102
+                    "productId": 102,
+                    "unitPrice": 200
                 }
             ]
           }
       }
       ```
-    - **400 Bad Request**: Returns "Incomplete order details."
+    - **400 Bad Request**: Returns `Product with ID productId not found`
 
 ---
 
