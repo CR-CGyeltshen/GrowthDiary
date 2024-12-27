@@ -120,7 +120,7 @@
     * **404 - Not Found :** Missing Required Fields.
     * **409 :** Unique Code `Code` already exist.
 
-### ENDPOINT: `GET  /questionnaire/list?page={pageNumber}%limit={limit}`
+### ENDPOINT: `GET  /questionnaire/list/:userID?page={pageNumber}%limit={limit}`
 
 * **Description :** Paginated API endpoint for retriving all the questionnairs. 
 * **Query Logic :** Query database to get all the questions.
@@ -146,7 +146,7 @@
     * **409 :** User `userID` to authorized.
 
 
-### ENDPOINT: `PATCH  /update/questionnaire/:id`
+### ENDPOINT: `PATCH  /update/questionnaire/:id/:userID`
 
 * **Description :** Update the existing questionnair with corresponding answer. 
 * **Query Logic :** Check the `userID`, if it is autorized then allow the user to update the questionnair with relivent answer.
@@ -265,8 +265,176 @@
 
 ## **Felt Report**
 
+### ENDPOINT: `POST  /create/servayQuestion/:adminID`
+
+* **Description :** Create `felt like report` questions for public.
+* **Query Logic :** Check the `adminID`, if it is autorized then allow the admin to create a new questions.
+* **Response:**
+    * **200 OK :** Succesfully created a new questions for `felt like report`.
+    ```py title="index.py"
+
+    {
+        "adminID":"adminID",
+        "data" : 
+            {
+                "Question":"Question",
+                "Options":"Options",
+                "Remarks":"Remarks"
+            }
+    }
+    ```
+    * **404 - Not Found :** Missing Required Fields.
+    * **409 :** Unique Code `Code` already exist.
 
 
+### ENDPOINT: `GET  /feltReport/list?page={pageNumber}%limit={limit}`
+
+* **Description :** Paginated API endpoint for retriving all the questions for `felt like report`. 
+* **Query Logic :** Query database to get all the questions.
+* **Response:**
+    * **200 OK :** Succesfully retrivell all `limit` data from `offset`. 
+    ```py title="index.py"
+
+    {
+        "pageNumber":"pageNumber",
+        "limit":"limit",
+        "feltLikeReport": 
+            {
+                "Question":"Question",
+                "Options":"Options",
+                "Remarks":"Remarks"
+            }
+    }
+    ```
+    * **404 - Not Found :** Bed request.
+
+
+### ENDPOINT: `PATCH  /update/feltReport/:id`
+
+* **Description :** Update the existing `felt like report` with corresponding answer. 
+* **Query Logic :** Update answers to corresponding question with the given questionID `id`.
+* **Response:**
+    * **200 OK :** Succesfully answered the questionnairs with id `id`. 
+    ```py title="index.py"
+    {
+        "questionID":"id",
+        "feltLikeReport" : 
+            {
+                "Options":"Options",
+                "Remarks":"Remarks"
+            }
+    }
+    ```
+    * **404 - Not Found :** Missing required field.
+    * **409 :** Question with the unique identifier `id` do not exist.
+
+
+## **SMS Stakeholders**
+
+### ENDPOINT: `POST  /create/stakeholders/:adminID`
+* **Description :** Create new stakeholders.
+* **Query Logic :** Check the `adminId` provided, if it's authorized then allow the admin to create new `stakeholders` with correct phone number.
+* **Response:**
+    * **200 OK :** Succesfully created stakeholder with phone number `TelephoneNo`.
+    ```py title="index.py"
+    {
+        "adminID":"adminID",
+        "data": 
+            {
+                "Name":"Name",
+                "TelephoneNo":"TelephoneNo",
+                "Description":"Description"
+            }
+    }
+    ```
+    * **404 - Not Found :** Missing required field.
+    * **409 :** Phone Number `TelephoneNo` already exist.
+
+
+### ENDPOINT: `PATCH  /update/stakeholders/:userID`
+* **Description :** Update the details of the sytakeholder. 
+* **Query Logic :** Check the `userID` provided, if it's authorized and has valid permissions as a stakeholder then allow that particular stakeholder to update it's `stakeholders` information.
+* **Response:**
+    * **200 OK :** Succesfully updated your stakeholder information.
+    ```py title="index.py"
+    {
+        "userID":"userID",
+        "where":{
+            "TelephoneNo":"TelephoneNo",
+        }
+        "data": 
+            {
+                "Name":"Name",
+                "TelephoneNo":"TelephoneNo",
+                "Description":"Description"
+            }
+    }
+    ```
+    * **404 - Not Found :** Invalid phone number `TelephoneNo`.
+    * **409 :** Phone Number `TelephoneNo` already exist.
+
+
+### ENDPOINT: `DELETE  /delete/stakeholders/:adminID`
+* **Description :** Delete the details of the sytakeholder. 
+* **Query Logic :** Check the `adminID` provided, if it's authorized then allow the admin to delete stakeholders.
+* **Response:**
+    * **200 OK :** Succesfully deleted your stakeholder `Name`.
+    ```py title="index.py"
+    {
+        "userID":"userID",
+        "where":{
+            "TelephoneNo":"TelephoneNo",
+        }
+        "data": 
+            {
+                "Name":"Name",
+                "TelephoneNo":"TelephoneNo",
+                "Description":"Description"
+            }
+    }
+    ```
+    * **404 - Not Found :** Invalid phone number `TelephoneNo`.
+    * **409 :** Phone Number `TelephoneNo` already exist.
+
+
+* **Earthquake Notification**
+
+### ENDPOINT: `POST  /send/notification/public/:adminID`
+* **Description :** Send notification to all the public when the input field `SMS To` is set to true.
+* **Query Logic :** Check the `adminID`, if it's authorized then allow the admin to send notification to all the public.
+* **Response:**
+    * **200 OK :** Succesfully delivered sms to general public.
+    ```py title="index.py"
+    {
+        "adminID":"adminID",
+        "data": 
+            {
+                "smsTo":true,
+                "Message":"Message"
+            }
+    }
+    ```
+    * **404 - Not Found :** Missing Required Fields.
+    * **409 :** Admin with the `adminID` is not authorized to create rule.
+
+
+### ENDPOINT: `POST  /send/notification/stakeholders/:adminID`
+* **Description :** Send notification to all the stakeholder when the input field `SMS To` is set to true.
+* **Query Logic :** Check the `adminID`, if it's authorized then allow the admin to send notification to all the stakeholders.
+* **Response:**
+    * **200 OK :** Succesfully deleted your stakeholder `Name`.
+    ```py title="index.py"
+    {
+        "adminID":"adminID",
+        "data": 
+            {
+                "smsTo":true,
+                "Message":"Message"
+            }
+    }
+    ```
+    * **404 - Not Found :** Missing Required Fields.
+    * **409 :** Admin with the `adminID` is not authorized to create rule.
 
 
 
