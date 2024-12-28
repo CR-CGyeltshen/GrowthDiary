@@ -1,6 +1,6 @@
 # API endpoint desig for GeoHasardSystem
 
-## **Master Data Management**
+## **1. Master Data Management**
 
 
 ### ENDPOINT: `POST  /create/record/:adminID`
