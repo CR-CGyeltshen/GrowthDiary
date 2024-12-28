@@ -438,5 +438,20 @@
 
 
 
+## **Landslide Inventory**
+
+### ENDPOINT: `POST  /send/notification/stakeholders/:adminID`
+* **Description :**
+* **Query Logic :**
+* **Response:**
+    * **200 OK :**
+    ```py title="index.py"
+    {
+
+    }
+    ```
+    * **404 - Not Found :**
+    * **409 :** 
+
 
 
