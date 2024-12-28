@@ -71,7 +71,7 @@
     ```
     * **404 - Not Found :** Requested data with the `recordID` does not exist.
 
-## **Intensity Scale**
+## **2. Intensity Scale**
 
 ### ENDPOINT: `POST  /create/intensityScale/records`
 * **Description :** Create a new intensityScale with a unique indentifier `Code`.
@@ -95,7 +95,7 @@
     * **409 :** Unique Code `Code` already exist.
 
 
-## **Survey Questionnaire**
+## **3. Survey Questionnaire**
 
 ### ENDPOINT: `POST  /create/questionnaire/:adminID`
 
@@ -169,7 +169,7 @@
     * **409 :** Question with the unique identifier `id` do not exist.
 
  
-## **Notification Rules**
+## **4. Notification Rules**
 
 
 ### ENDPOINT: `POST  /create/rules/:adminID`
@@ -263,7 +263,7 @@
     * **409 :** Admin with the `adminID` is not authorized to create rule.
 
 
-## **Felt Report**
+## **5. Felt Report**
 
 ### ENDPOINT: `POST  /create/servayQuestion/:adminID`
 
@@ -329,7 +329,7 @@
     * **409 :** Question with the unique identifier `id` do not exist.
 
 
-## **SMS Stakeholders**
+## **6. SMS Stakeholders**
 
 ### ENDPOINT: `POST  /create/stakeholders/:adminID`
 * **Description :** Create new stakeholders.
@@ -397,7 +397,7 @@
     * **409 :** Phone Number `TelephoneNo` already exist.
 
 
-* **Earthquake Notification**
+## **7. Earthquake Notification**
 
 ### ENDPOINT: `POST  /send/notification/public/:adminID`
 * **Description :** Send notification to all the public when the input field `SMS To` is set to true.
@@ -438,7 +438,7 @@
 
 
 
-## **Landslide Inventory**
+## **8. Landslide Inventory**
 
 ### ENDPOINT: `POST  /send/notification/stakeholders/:adminID`
 * **Description :**
