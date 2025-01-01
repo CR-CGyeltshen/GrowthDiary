@@ -1,0 +1,1941 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../API-endpoint-design/">
+      
+      
+        <link rel="next" href="../CoursesLink/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>API Endpoint Design for GeoHazardSystem - GrowthDiary with Chimi</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-endpoint-design-for-geohazardsystem" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="GrowthDiary with Chimi" class="md-header__button md-logo" aria-label="GrowthDiary with Chimi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GrowthDiary with Chimi
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API Endpoint Design for GeoHazardSystem
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../API-endpoint-design/" class="md-tabs__link">
+        
+  
+    
+  
+  API Endpoint Design
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  API Endpoint Design for GeoHazardSystem
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../CoursesLink/" class="md-tabs__link">
+        
+  
+    
+  
+  Recommended Courses
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../GHS/" class="md-tabs__link">
+        
+  
+    
+  
+  My Understanding of the BRD
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../OOP/" class="md-tabs__link">
+        
+  
+    
+  
+  Object Oriented Programing
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cyber/" class="md-tabs__link">
+        
+  
+    
+  
+  Cyber Security Learning
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../discussion/" class="md-tabs__link">
+        
+  
+    
+  
+  Capstone Discussion - 30th December
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../orderStatus/" class="md-tabs__link">
+        
+  
+    
+  
+  Order Status
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../reference/" class="md-tabs__link">
+        
+  
+    
+  
+  MKDocs Guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../Internship_Blog/internWeek1/" class="md-tabs__link">
+          
+  
+  Internship Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../freeCodeCamp/intro_linux/nevigation_file/" class="md-tabs__link">
+          
+  
+  freeCodeCamp
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="GrowthDiary with Chimi" class="md-nav__button md-logo" aria-label="GrowthDiary with Chimi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    GrowthDiary with Chimi
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API-endpoint-design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API Endpoint Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    API Endpoint Design for GeoHazardSystem
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    API Endpoint Design for GeoHazardSystem
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-master-data-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Master Data Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Master Data Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-post-createrecordadminid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: POST /create/record/:adminID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-patch-updatedatarecordsadminidid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: PATCH /update/dataRecords/:adminID/:id
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-patch-updateactivestatusadminidid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: PATCH /update/activeStatus/:adminID/:id
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-intensity-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Intensity Scale
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Intensity Scale">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-post-createintensityscalerecords" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: POST /create/intensityScale/records
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-survey-questionnaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Survey Questionnaire
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Survey Questionnaire">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-post-createquestionnaireadminid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: POST /create/questionnaire/:adminID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-get-questionnairelistuseridpagepagenumberlimitlimit" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: GET /questionnaire/list/:userID?page={pageNumber}&amp;limit={limit}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-patch-updatequestionnaireiduserid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: PATCH /update/questionnaire/:id/:userID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-post-createrulesadminid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: POST /create/rules/:adminID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-patch-updaterulesadminidid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: PATCH /update/rules/:adminID/:id
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-delete-deleterulesadminidid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: DELETE /delete/rules/:adminID/:id
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-post-sendnotificationadminid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: POST /send/notification/:adminID
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-felt-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Felt Report
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Felt Report">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-post-createsurveyquestionadminid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: POST /create/surveyQuestion/:adminID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-get-feltreportlistpagepagenumberlimitlimit" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: GET /feltReport/list?page={pageNumber}&amp;limit={limit}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-patch-updatefeltreportid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: PATCH /update/feltReport/:id
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-sms-stakeholders" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. SMS Stakeholders
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. SMS Stakeholders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-post-createstakeholdersadminid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: POST /create/stakeholders/:adminID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-patch-updatestakeholdersuserid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: PATCH /update/stakeholders/:userID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-delete-deletestakeholdersadminid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: DELETE /delete/stakeholders/:adminID
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-earthquake-notification" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Earthquake Notification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Earthquake Notification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-post-sendnotificationpublicadminid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: POST /send/notification/public/:adminID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-post-sendnotificationstakeholdersadminid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: POST /send/notification/stakeholders/:adminID
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-landslide-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Landslide Inventory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Landslide Inventory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-post-createlandsliderecordadminid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: POST /create/landslide/record/:adminID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-get-landsliderecordspagepagenumberlimitlimit" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: GET /landslide/records?page={pageNumber}&amp;limit={limit}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-patch-updatelandsliderecordadminidrecordid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: PATCH /update/landslide/record/:adminID/:recordID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-delete-deletelandsliderecordadminidrecordid" class="md-nav__link">
+    <span class="md-ellipsis">
+      ENDPOINT: DELETE /delete/landslide/record/:adminID/:recordID
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CoursesLink/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Recommended Courses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GHS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    My Understanding of the BRD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OOP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Object Oriented Programing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cyber/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cyber Security Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../discussion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Capstone Discussion - 30th December
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../orderStatus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Order Status
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MKDocs Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Internship Blog
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Internship Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Internship_Blog/internWeek1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Internship Week 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Internship_Blog/internWeek2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Internship Week 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Internship_Blog/internWeek3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Internship Week 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Internship_Blog/internWeek4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Internship Week 4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Internship_Blog/internWeek5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Internship Week 5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Internship_Blog/internWeek6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Internship Week 6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Internship_Blog/internWeek7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Internship Week 7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Internship_Blog/internWeek8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Internship Week 8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Internship_Blog/internWeek9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Internship Week 9
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    freeCodeCamp
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            freeCodeCamp
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_1" id="__nav_11_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Intro linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_1">
+            <span class="md-nav__icon md-icon"></span>
+            Intro linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../freeCodeCamp/intro_linux/nevigation_file/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Nevigation in Linux commands
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="api-endpoint-design-for-geohazardsystem">API Endpoint Design for GeoHazardSystem</h1>
+<h2 id="1-master-data-management"><strong>1. Master Data Management</strong></h2>
+<h3 id="endpoint-post-createrecordadminid">ENDPOINT: <code>POST /create/record/:adminID</code></h3>
+<ul>
+<li>
+<p><strong>Description:</strong> Create a new record.</p>
+</li>
+<li>
+<p><strong>Query Logic:</strong> Retrieve the path parameter <code>adminID</code> and check the <code>user role</code>. Based on the user role and permissions, allow the user to perform the task.</p>
+</li>
+<li>
+<p><strong>Response:</strong></p>
+<ul>
+<li><strong>200 OK:</strong> New record created.
+<div class="highlight"><span class="filename">index.py</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="s2">&quot;adminID&quot;</span><span class="p">:</span> <span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="s2">&quot;Code&quot;</span><span class="p">:</span> <span class="s2">&quot;Code&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="s2">&quot;Description&quot;</span><span class="p">:</span> <span class="s2">&quot;Description&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="s2">&quot;recordStatus&quot;</span><span class="p">:</span> <span class="mi">1</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="p">}</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Missing required fields.</li>
+<li><strong>409 Conflict:</strong> Unique <code>Code</code> and <code>Name</code> already exist.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="endpoint-patch-updatedatarecordsadminidid">ENDPOINT: <code>PATCH /update/dataRecords/:adminID/:id</code></h3>
+<ul>
+<li>
+<p><strong>Description:</strong> Update existing records.</p>
+</li>
+<li>
+<p><strong>Query Logic:</strong> Check the <code>adminID</code>. If valid, allow the admin to update the existing record based on a unique identifier like <code>Code</code> or <code>Name</code>.</p>
+</li>
+<li>
+<p><strong>Response:</strong></p>
+<ul>
+<li><strong>200 OK:</strong> Record updated with the unique identifier <code>Code</code> or <code>Name</code>.
+<div class="highlight"><span class="filename">index.py</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="s2">&quot;adminID&quot;</span><span class="p">:</span> <span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="s2">&quot;recordID&quot;</span><span class="p">:</span> <span class="s2">&quot;id&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="s2">&quot;Code&quot;</span><span class="p">:</span> <span class="s2">&quot;Code&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="s2">&quot;Description&quot;</span><span class="p">:</span> <span class="s2">&quot;Description&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="s2">&quot;recordStatus&quot;</span><span class="p">:</span> <span class="mi">1</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="p">}</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Missing required field <code>id</code>.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="endpoint-patch-updateactivestatusadminidid">ENDPOINT: <code>PATCH /update/activeStatus/:adminID/:id</code></h3>
+<ul>
+<li>
+<p><strong>Description:</strong> Update the <code>recordStatus</code> to <code>0</code>, indicating deactivation or archiving.</p>
+</li>
+<li>
+<p><strong>Query Logic:</strong> Check the <code>adminID</code>. If authorized, find the specific data record with <code>id</code> and update the record.</p>
+</li>
+<li>
+<p><strong>Response:</strong></p>
+<ul>
+<li><strong>200 OK:</strong> Data with the <code>id</code> successfully updated.
+<div class="highlight"><span class="filename">index.py</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="s2">&quot;adminID&quot;</span><span class="p">:</span> <span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="s2">&quot;recordID&quot;</span><span class="p">:</span> <span class="s2">&quot;id&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="s2">&quot;Code&quot;</span><span class="p">:</span> <span class="s2">&quot;Code&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="s2">&quot;Description&quot;</span><span class="p">:</span> <span class="s2">&quot;Description&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="s2">&quot;recordStatus&quot;</span><span class="p">:</span> <span class="mi">0</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="p">}</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Requested data with <code>recordID</code> does not exist.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="2-intensity-scale"><strong>2. Intensity Scale</strong></h2>
+<h3 id="endpoint-post-createintensityscalerecords">ENDPOINT: <code>POST /create/intensityScale/records</code></h3>
+<ul>
+<li>
+<p><strong>Description:</strong> Create a new intensity scale with a unique identifier <code>Code</code>.</p>
+</li>
+<li>
+<p><strong>Query Logic:</strong> Check the <code>adminID</code>. If authorized, create a new intensity record with a unique identifier <code>intensityScale</code>.</p>
+</li>
+<li>
+<p><strong>Response:</strong></p>
+<ul>
+<li><strong>200 OK:</strong> Successfully created a new intensity scale record.
+<div class="highlight"><span class="filename">index.py</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="s2">&quot;adminID&quot;</span><span class="p">:</span> <span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        <span class="s2">&quot;Code&quot;</span><span class="p">:</span> <span class="s2">&quot;Code&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="s2">&quot;IntensityScale&quot;</span><span class="p">:</span> <span class="s2">&quot;Intensity Scale&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="s2">&quot;DamageDescription&quot;</span><span class="p">:</span> <span class="s2">&quot;Damage Description&quot;</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="p">}</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Missing required fields.</li>
+<li><strong>409 Conflict:</strong> Unique <code>Code</code> already exists.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="3-survey-questionnaire"><strong>3. Survey Questionnaire</strong></h2>
+<h3 id="endpoint-post-createquestionnaireadminid">ENDPOINT: <code>POST /create/questionnaire/:adminID</code></h3>
+<ul>
+<li>
+<p><strong>Description:</strong> API endpoint for creating a new questionnaire by the admin.</p>
+</li>
+<li>
+<p><strong>Query Logic:</strong> Check the <code>adminID</code>. If authorized, allow the admin to create a new question.</p>
+</li>
+<li>
+<p><strong>Response:</strong></p>
+<ul>
+<li><strong>200 OK:</strong> Successfully created a new question.
+<div class="highlight"><span class="filename">index.py</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="s2">&quot;adminID&quot;</span><span class="p">:</span> <span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        <span class="s2">&quot;Code&quot;</span><span class="p">:</span> <span class="s2">&quot;Code&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="s2">&quot;Question&quot;</span><span class="p">:</span> <span class="s2">&quot;Question&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="s2">&quot;AnswerType&quot;</span><span class="p">:</span> <span class="s2">&quot;AnswerType&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        <span class="s2">&quot;Answer&quot;</span><span class="p">:</span> <span class="s2">&quot;Answer&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="s2">&quot;Remarks&quot;</span><span class="p">:</span> <span class="s2">&quot;Remarks&quot;</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="p">}</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Missing required fields.</li>
+<li><strong>409 Conflict:</strong> Unique <code>Code</code> already exists.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="endpoint-get-questionnairelistuseridpagepagenumberlimitlimit">ENDPOINT: <code>GET /questionnaire/list/:userID?page={pageNumber}&amp;limit={limit}</code></h3>
+<ul>
+<li>
+<p><strong>Description:</strong> Paginated API endpoint for retrieving all the questionnaires.</p>
+</li>
+<li>
+<p><strong>Query Logic:</strong> Query the database to get all the questions.</p>
+</li>
+<li>
+<p><strong>Response:</strong></p>
+<ul>
+<li><strong>200 OK:</strong> Successfully retrieved all <code>limit</code> data from <code>offset</code>.
+<div class="highlight"><span class="filename">index.py</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="s2">&quot;userID&quot;</span><span class="p">:</span> <span class="s2">&quot;userID&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="s2">&quot;pageNumber&quot;</span><span class="p">:</span> <span class="s2">&quot;pageNumber&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="s2">&quot;limit&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="s2">&quot;questionList&quot;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        <span class="s2">&quot;Code&quot;</span><span class="p">:</span> <span class="s2">&quot;Code&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        <span class="s2">&quot;Question&quot;</span><span class="p">:</span> <span class="s2">&quot;Question&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>        <span class="s2">&quot;AnswerType&quot;</span><span class="p">:</span> <span class="s2">&quot;AnswerType&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>        <span class="s2">&quot;Answer&quot;</span><span class="p">:</span> <span class="s2">&quot;Answer&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        <span class="s2">&quot;Remarks&quot;</span><span class="p">:</span> <span class="s2">&quot;Remarks&quot;</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    <span class="p">}</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Bad request.</li>
+<li><strong>409 Conflict:</strong> User <code>userID</code> not authorized.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="endpoint-patch-updatequestionnaireiduserid">ENDPOINT: <code>PATCH /update/questionnaire/:id/:userID</code></h3>
+<ul>
+<li>
+<p><strong>Description:</strong> Update the existing questionnaire with corresponding answers.</p>
+</li>
+<li>
+<p><strong>Query Logic:</strong> Check the <code>userID</code>. If authorized, allow the user to update the questionnaire with relevant answers.</p>
+</li>
+<li>
+<p><strong>Response:</strong></p>
+<ul>
+<li><strong>200 OK:</strong> Successfully answered the questionnaire with <code>id</code>.
+<div class="highlight"><span class="filename">index.py</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="s2">&quot;userID&quot;</span><span class="p">:</span> <span class="s2">&quot;userID&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="s2">&quot;questionID&quot;</span><span class="p">:</span> <span class="s2">&quot;id&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="s2">&quot;questionList&quot;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="s2">&quot;AnswerType&quot;</span><span class="p">:</span> <span class="s2">&quot;AnswerType&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="s2">&quot;Answer&quot;</span><span class="p">:</span> <span class="s2">&quot;Answer&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        <span class="s2">&quot;Remarks&quot;</span><span class="p">:</span> <span class="s2">&quot;Remarks&quot;</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="p">}</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Missing required field.</li>
+<li><strong>409 Conflict:</strong> Question with the unique identifier <code>id</code> does not exist.</li>
+</ul>
+</li>
+</ul>
+<p>## <strong>4. Notification Rules</strong></p>
+<h3 id="endpoint-post-createrulesadminid"><strong>ENDPOINT: <code>POST /create/rules/:adminID</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Create new rules for sending notifications.</li>
+<li><strong>Query Logic:</strong> Verify the <code>adminID</code>. If authorized, allow the admin to create a new rule.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully created a rule with ID <code>ruleID</code>.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="nt">&quot;adminID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">        </span><span class="nt">&quot;MeasurementType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MeasurementType&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">        </span><span class="nt">&quot;Value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Value&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">        </span><span class="nt">&quot;Notification&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Notification&quot;</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Missing required fields.</li>
+<li><strong>409 Conflict:</strong> Admin with <code>adminID</code> is not authorized to create a rule.</li>
+</ul>
+<hr />
+<h3 id="endpoint-patch-updaterulesadminidid"><strong>ENDPOINT: <code>PATCH /update/rules/:adminID/:id</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Update existing rules.</li>
+<li><strong>Query Logic:</strong> Verify the <code>adminID</code>. If authorized, allow the admin to update the rule with <code>id</code>.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully updated the rule with ID <code>ruleID</code>.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="nt">&quot;adminID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nt">&quot;ruleID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;id&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">        </span><span class="nt">&quot;MeasurementType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MeasurementType&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">        </span><span class="nt">&quot;Value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Value&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">        </span><span class="nt">&quot;Notification&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Notification&quot;</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Rule with <code>ruleID</code> does not exist.</li>
+<li><strong>409 Conflict:</strong> Admin with <code>adminID</code> is not authorized to update the rule.</li>
+</ul>
+<hr />
+<h3 id="endpoint-delete-deleterulesadminidid"><strong>ENDPOINT: <code>DELETE /delete/rules/:adminID/:id</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Delete an existing rule with a given ID.</li>
+<li><strong>Query Logic:</strong> Verify the <code>adminID</code>. If authorized, allow the admin to delete the rule with <code>ruleID</code>.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully deleted the rule with ID <code>ruleID</code>.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="nt">&quot;adminID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="nt">&quot;ruleID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;id&quot;</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Rule with <code>ruleID</code> does not exist.</li>
+<li><strong>409 Conflict:</strong> Admin with <code>adminID</code> is not authorized to delete the rule.</li>
+</ul>
+<hr />
+<h3 id="endpoint-post-sendnotificationadminid"><strong>ENDPOINT: <code>POST /send/notification/:adminID</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Send notifications if the intensity level exceeds the value provided in the rules.</li>
+<li><strong>Query Logic:</strong> Verify the <code>adminID</code>. If authorized, allow the admin to send notifications to the respective stakeholders.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully delivered the notification.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="nt">&quot;adminID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="nt">&quot;recipients&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;17828281&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;77267272&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;17282828&quot;</span><span class="p">],</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SMS&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">        </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hazard Alarm&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">        </span><span class="nt">&quot;Notification&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Notification&quot;</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Missing required fields.</li>
+<li><strong>409 Conflict:</strong> Admin with <code>adminID</code> is not authorized to send notifications.</li>
+</ul>
+<hr />
+<h2 id="5-felt-report"><strong>5. Felt Report</strong></h2>
+<h3 id="endpoint-post-createsurveyquestionadminid"><strong>ENDPOINT: <code>POST /create/surveyQuestion/:adminID</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Create "felt like report" questions for the public.</li>
+<li><strong>Query Logic:</strong> Verify the <code>adminID</code>. If authorized, allow the admin to create new questions.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully created a new question for the "felt like report".
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="nt">&quot;adminID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">        </span><span class="nt">&quot;Question&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Question&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">        </span><span class="nt">&quot;Options&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Options&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">        </span><span class="nt">&quot;Remarks&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Remarks&quot;</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Missing required fields.</li>
+<li><strong>409 Conflict:</strong> Unique code <code>Code</code> already exists.</li>
+</ul>
+<hr />
+<h3 id="endpoint-get-feltreportlistpagepagenumberlimitlimit"><strong>ENDPOINT: <code>GET /feltReport/list?page={pageNumber}&amp;limit={limit}</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Paginated API endpoint for retrieving all the questions for the "felt like report".</li>
+<li><strong>Query Logic:</strong> Query the database to get all the questions.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully retrieved <code>limit</code> data from <code>offset</code>.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="nt">&quot;pageNumber&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pageNumber&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="nt">&quot;limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;limit&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="nt">&quot;feltLikeReport&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">            </span><span class="nt">&quot;Question&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Question&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">            </span><span class="nt">&quot;Options&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Options&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">            </span><span class="nt">&quot;Remarks&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Remarks&quot;</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="p">]</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Bad request.</li>
+</ul>
+<hr />
+<h3 id="endpoint-patch-updatefeltreportid"><strong>ENDPOINT: <code>PATCH /update/feltReport/:id</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Update the existing "felt like report" with the corresponding answer.</li>
+<li><strong>Query Logic:</strong> Update the answer to the corresponding question with the given question ID <code>id</code>.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully answered the questionnaire with ID <code>id</code>.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="nt">&quot;questionID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;id&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nt">&quot;feltLikeReport&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">        </span><span class="nt">&quot;Options&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Options&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">        </span><span class="nt">&quot;Remarks&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Remarks&quot;</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Missing required fields.</li>
+<li><strong>409 Conflict:</strong> Question with the unique identifier <code>id</code> does not exist.</li>
+</ul>
+<hr />
+<h2 id="6-sms-stakeholders"><strong>6. SMS Stakeholders</strong></h2>
+<h3 id="endpoint-post-createstakeholdersadminid"><strong>ENDPOINT: <code>POST /create/stakeholders/:adminID</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Create new stakeholders.</li>
+<li><strong>Query Logic:</strong> Verify the <code>adminID</code>. If authorized, allow the admin to create new stakeholders with a valid phone number.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully created a stakeholder with the phone number <code>TelephoneNo</code>.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">{</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="nt">&quot;adminID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">        </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">        </span><span class="nt">&quot;TelephoneNo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TelephoneNo&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">        </span><span class="nt">&quot;Description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Description&quot;</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Missing required fields.</li>
+<li><strong>409 Conflict:</strong> Phone number <code>TelephoneNo</code> already exists.</li>
+</ul>
+<hr />
+<h3 id="endpoint-patch-updatestakeholdersuserid"><strong>ENDPOINT: <code>PATCH /update/stakeholders/:userID</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Update the details of the stakeholder.</li>
+<li><strong>Query Logic:</strong> Verify the <code>userID</code>. If authorized, allow the stakeholder to update their information.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully updated the stakeholder information.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="p">{</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="nt">&quot;userID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;userID&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">        </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">        </span><span class="nt">&quot;TelephoneNo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TelephoneNo&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">        </span><span class="nt">&quot;Description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Description&quot;</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Invalid phone number <code>TelephoneNo</code>.</li>
+<li><strong>409 Conflict:</strong> Phone number <code>TelephoneNo</code> already exists.</li>
+</ul>
+<hr />
+<h3 id="endpoint-delete-deletestakeholdersadminid"><strong>ENDPOINT: <code>DELETE /delete/stakeholders/:adminID</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Delete the details of a stakeholder.</li>
+<li><strong>Query Logic:</strong> Verify the <code>adminID</code>. If authorized, allow the admin to delete the stakeholder.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully deleted the stakeholder <code>Name</code>.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">{</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="nt">&quot;adminID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">        </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">        </span><span class="nt">&quot;TelephoneNo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TelephoneNo&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">        </span><span class="nt">&quot;Description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Description&quot;</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Invalid phone number <code>TelephoneNo</code>.</li>
+<li><strong>409 Conflict:</strong> Phone number <code>TelephoneNo</code> already exists.</li>
+</ul>
+<h2 id="7-earthquake-notification"><strong>7. Earthquake Notification</strong></h2>
+<h3 id="endpoint-post-sendnotificationpublicadminid"><strong>ENDPOINT: <code>POST /send/notification/public/:adminID</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Send a notification to the public when the input field <code>SMS To</code> is set to <code>true</code>.</li>
+<li><strong>Query Logic:</strong> Check the <code>adminID</code>. If authorized, allow the admin to send notifications to the public.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully delivered SMS to the general public.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">{</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="nt">&quot;adminID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">        </span><span class="nt">&quot;smsTo&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">        </span><span class="nt">&quot;Message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Message&quot;</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Missing required fields.</li>
+<li><strong>409 Conflict:</strong> Admin with the <code>adminID</code> is not authorized to send notifications.</li>
+</ul>
+<hr />
+<h3 id="endpoint-post-sendnotificationstakeholdersadminid"><strong>ENDPOINT: <code>POST /send/notification/stakeholders/:adminID</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Send a notification to all stakeholders when the input field <code>SMS To</code> is set to <code>true</code>.</li>
+<li><strong>Query Logic:</strong> Check the <code>adminID</code>. If authorized, allow the admin to send notifications to all stakeholders.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully delivered SMS to all stakeholders.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="p">{</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="nt">&quot;adminID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">        </span><span class="nt">&quot;smsTo&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">        </span><span class="nt">&quot;Message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Message&quot;</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Missing required fields.</li>
+<li><strong>409 Conflict:</strong> Admin with the <code>adminID</code> is not authorized to send notifications.</li>
+</ul>
+<hr />
+<h2 id="8-landslide-inventory"><strong>8. Landslide Inventory</strong></h2>
+<h3 id="endpoint-post-createlandsliderecordadminid"><strong>ENDPOINT: <code>POST /create/landslide/record/:adminID</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Create a new landslide inventory record.</li>
+<li><strong>Query Logic:</strong> Verify the <code>adminID</code>. If authorized, allow the admin to create a new landslide record.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully created a new landslide inventory record.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="p">{</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="nt">&quot;adminID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">        </span><span class="nt">&quot;Location&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Location&quot;</span><span class="p">,</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">        </span><span class="nt">&quot;Date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Date&quot;</span><span class="p">,</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">        </span><span class="nt">&quot;Description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Description&quot;</span><span class="p">,</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">        </span><span class="nt">&quot;Severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Severity&quot;</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Missing required fields.</li>
+<li><strong>409 Conflict:</strong> Admin with the <code>adminID</code> is not authorized to create records.</li>
+</ul>
+<hr />
+<h3 id="endpoint-get-landsliderecordspagepagenumberlimitlimit"><strong>ENDPOINT: <code>GET /landslide/records?page={pageNumber}&amp;limit={limit}</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Retrieve paginated landslide records.</li>
+<li><strong>Query Logic:</strong> Fetch all records and return results based on the <code>pageNumber</code> and <code>limit</code>.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully retrieved records.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="p">{</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="nt">&quot;pageNumber&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pageNumber&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="nt">&quot;limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;limit&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="nt">&quot;records&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">            </span><span class="nt">&quot;Location&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Location&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">            </span><span class="nt">&quot;Date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Date&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="w">            </span><span class="nt">&quot;Description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Description&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="w">            </span><span class="nt">&quot;Severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Severity&quot;</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="w">    </span><span class="p">]</span>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> No records found.</li>
+</ul>
+<hr />
+<h3 id="endpoint-patch-updatelandsliderecordadminidrecordid"><strong>ENDPOINT: <code>PATCH /update/landslide/record/:adminID/:recordID</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Update an existing landslide inventory record.</li>
+<li><strong>Query Logic:</strong> Verify the <code>adminID</code>. If authorized, allow the admin to update the record with <code>recordID</code>.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully updated the record.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="p">{</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span><span class="nt">&quot;adminID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span><span class="nt">&quot;recordID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;recordID&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">        </span><span class="nt">&quot;Location&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Location&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">        </span><span class="nt">&quot;Date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Date&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="w">        </span><span class="nt">&quot;Description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Description&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="w">        </span><span class="nt">&quot;Severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Severity&quot;</span>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Record with <code>recordID</code> does not exist.</li>
+<li><strong>409 Conflict:</strong> Admin with the <code>adminID</code> is not authorized to update records.</li>
+</ul>
+<hr />
+<h3 id="endpoint-delete-deletelandsliderecordadminidrecordid"><strong>ENDPOINT: <code>DELETE /delete/landslide/record/:adminID/:recordID</code></strong></h3>
+<ul>
+<li><strong>Description:</strong> Delete an existing landslide inventory record.</li>
+<li><strong>Query Logic:</strong> Verify the <code>adminID</code>. If authorized, allow the admin to delete the record with <code>recordID</code>.</li>
+<li><strong>Response:</strong></li>
+<li><strong>200 OK:</strong> Successfully deleted the record.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="p">{</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">    </span><span class="nt">&quot;adminID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;adminID&quot;</span><span class="p">,</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="nt">&quot;recordID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;recordID&quot;</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>404 Not Found:</strong> Record with <code>recordID</code> does not exist.</li>
+<li><strong>409 Conflict:</strong> Admin with the <code>adminID</code> is not authorized to delete records.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/james-willett" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/TheJamesWillett" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/willettjames/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+    
+  </body>
+</html>
